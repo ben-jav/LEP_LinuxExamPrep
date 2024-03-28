@@ -1,0 +1,27 @@
+<h1>Learn Modus</h1>
+
+<!-- learn.component.html -->
+
+<div *ngFor="let question of questions">
+    <h3>{{question.id}}. {{ question.question }}</h3>
+    <p>Type: {{ question.type }}</p> <!-- Auf Enums zugreifen -->
+
+    <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
+        <ul>
+            <li *ngFor="let option of question.options">
+              <label>
+                <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
+                <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
+                {{ option }}
+              </label>
+            </li>
+          </ul>
+    </ng-container>
+    
+    <ng-container *ngIf="question.type === questionType.FillIn">
+        <input type="text" class="fill-in-field">
+    </ng-container>
+
+    <hr>
+</div>
+  
