@@ -2,8 +2,22 @@
 
 <!-- learn.component.html -->
 
-<div *ngFor="let question of questions">
-    <h3>{{question.id}}. {{ question.question }}</h3>
+<div>
+  <label>
+    <input type="checkbox" > Einzelansicht
+  </label>
+</div>
+
+ <!-- Einzelansicht -->
+<div *ngIf="singleView">
+  <h5>{{ currentQuestion.id }}. {{ currentQuestion.question }}</h5>
+  <p>Type: {{ currentQuestion.type }}</p>
+</div>
+
+
+ <!-- Listenansicht -->
+<div *ngFor="let question of questions; let i = index">
+    <h5>{{question.id}}. {{ question.question }}</h5>
     <p>Type: {{ question.type }}</p> <!-- Auf Enums zugreifen -->
 
     <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
@@ -15,13 +29,21 @@
                 {{ option }}
               </label>
             </li>
-          </ul>
+        </ul>
     </ng-container>
     
     <ng-container *ngIf="question.type === questionType.FillIn">
-        <input type="text" class="fill-in-field">
+        <input type="text" class="fill-in-field" value="{{answer}}" readonly>
+    </ng-container>
+
+    <ng-container>
+      <button (click)="showAnswer(i)">Show Answer</button>
+      <div *ngIf="showingAnswerIndex === i && question.type !== questionType.FillIn">
+        Answer: {{ question.answer }}
+      </div>
     </ng-container>
 
     <hr>
 </div>
-  
+
+
