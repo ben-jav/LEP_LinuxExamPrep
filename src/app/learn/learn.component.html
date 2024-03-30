@@ -1,49 +1,76 @@
 <h1>Learn Modus</h1>
 
 <!-- learn.component.html -->
+<button (click)="toggleView()" [disabled]="singleView === true">Einzelansicht</button>
+<button (click)="toggleView()" [disabled]="singleView === false">Listenansicht</button>
 
-<div>
-  <label>
-    <input type="checkbox" > Einzelansicht
-  </label>
-</div>
 
  <!-- Einzelansicht -->
 <div *ngIf="singleView">
   <h5>{{ currentQuestion.id }}. {{ currentQuestion.question }}</h5>
-  <p>Type: {{ currentQuestion.type }}</p>
-</div>
+  <p><< {{ currentQuestion.type }} >></p>
 
-
- <!-- Listenansicht -->
-<div *ngFor="let question of questions; let i = index">
-    <h5>{{question.id}}. {{ question.question }}</h5>
-    <p>Type: {{ question.type }}</p> <!-- Auf Enums zugreifen -->
-
-    <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
+    <ng-container *ngIf="currentQuestion.type !== questionType.FillIn">
         <ul>
-            <li *ngFor="let option of question.options">
+            <li *ngFor="let option of currentQuestion.options">
               <label>
-                <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
-                <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
+                <input type="radio" *ngIf="currentQuestion.type === questionType.SingleChoice" name="answer" [value]="option">
+                <input type="checkbox" *ngIf="currentQuestion.type === questionType.MultipleChoice" name="answer" [value]="option">
                 {{ option }}
               </label>
             </li>
         </ul>
     </ng-container>
     
-    <ng-container *ngIf="question.type === questionType.FillIn">
+    <ng-container *ngIf="currentQuestion.type === questionType.FillIn">
         <input type="text" class="fill-in-field" value="{{answer}}" readonly>
     </ng-container>
 
     <ng-container>
-      <button (click)="showAnswer(i)">Show Answer</button>
-      <div *ngIf="showingAnswerIndex === i && question.type !== questionType.FillIn">
-        Answer: {{ question.answer }}
+      <button (click)="showAnswer(currentQuestion.id)">Show Answer</button>
+      <div *ngIf="showingAnswerIndex === currentQuestion.id && currentQuestion.type !== questionType.FillIn">
+        Answer: {{ currentQuestion.answer }}
       </div>
     </ng-container>
 
-    <hr>
+   <div>
+    <button (click)="previousQuestion()" [disabled]="currentQuestion.id === 1">Previous</button>
+    <button (click)="nextQuestion()" [disabled]="currentQuestion.id === questions.length">Next</button>
+   </div>
+</div>
+
+
+ <!-- Listenansicht -->
+<div *ngIf="singleView === false">
+  <div *ngFor="let question of questions; let i = index">
+      <h5>{{question.id}}. {{ question.question }}</h5>
+      <p><< {{ question.type }} >></p> 
+  
+      <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
+          <ul>
+              <li *ngFor="let option of question.options">
+                <label>
+                  <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
+                  <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
+                  {{ option }}
+                </label>
+              </li>
+          </ul>
+      </ng-container>
+      
+      <ng-container *ngIf="question.type === questionType.FillIn">
+          <input type="text" class="fill-in-field" value="{{answer}}" readonly>
+      </ng-container>
+  
+      <ng-container>
+        <button (click)="showAnswer(i)">Show Answer</button>
+        <div *ngIf="showingAnswerIndex === i && question.type !== questionType.FillIn">
+          Answer: {{ question.answer }}
+        </div>
+      </ng-container>
+  
+      <hr>
+  </div>
 </div>
 
 

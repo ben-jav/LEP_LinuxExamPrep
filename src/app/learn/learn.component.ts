@@ -22,8 +22,21 @@ export class LearnComponent {
   ngOnInt() : void {
   }
 
+  toggleView() : void {
+    this.singleView = !this.singleView;
+  }
   get currentQuestion() : Question {
     return this.questions[this.currentIndex];
+  }
+  previousQuestion() : void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+  nextQuestion() : void {
+    if (this.currentIndex < this.questions.length - 1) {
+      this.currentIndex++;
+    }
   }
 
   showAnswer(i: number) : void {
@@ -32,6 +45,13 @@ export class LearnComponent {
       if (typeof(this.questions[i].answer) === 'string') {
         this.answer = this.questions[i].answer as string;
       }
-    }
+    } 
+    // else if (this.questions[i].type === this.questionType.SingleChoice) {
+    //   if (this.questions[i].options !== undefined) {
+        
+    //     var tmp: number = this.questions[i].answer as number;
+    //     this.answer = this.questions[i].options[tmp]
+    //   }
+    // }
   }
 }
