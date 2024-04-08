@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnswerService } from '../services/answer.service';
 
 @Component({
   selector: 'ne4-check',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class CheckComponent {
 
+  constructor(private answerService: AnswerService) { }
+  
 }

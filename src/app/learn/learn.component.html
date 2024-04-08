@@ -8,7 +8,7 @@
  <!-- Einzelansicht -->
 <div *ngIf="singleView">
   <h5>{{ currentQuestion.id }}. {{ currentQuestion.question }}</h5>
-  <p><< {{ currentQuestion.type }} >></p>
+  <p>-- {{ currentQuestion.type }} --</p>
 
     <ng-container *ngIf="currentQuestion.type !== questionType.FillIn">
         <ul>
@@ -27,8 +27,8 @@
     </ng-container>
 
     <ng-container>
-      <button (click)="showAnswer(currentQuestion.id)">Show Answer</button>
-      <div *ngIf="showingAnswerIndex === currentQuestion.id && currentQuestion.type !== questionType.FillIn">
+      <button (click)="showAnswer(currentQuestion.id - 1)">Show Answer</button>
+      <div *ngIf="showingAnswerIndex === currentQuestion.id - 1 && currentQuestion.type !== questionType.FillIn">
         Answer: {{ currentQuestion.answer }}
       </div>
     </ng-container>
@@ -44,7 +44,7 @@
 <div *ngIf="singleView === false">
   <div *ngFor="let question of questions; let i = index">
       <h5>{{question.id}}. {{ question.question }}</h5>
-      <p><< {{ question.type }} >></p> 
+      <p>-- {{ question.type }} --</p> 
   
       <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
           <ul>
