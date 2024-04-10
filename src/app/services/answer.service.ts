@@ -1,40 +1,50 @@
 import { Injectable } from "@angular/core";
 import { Question } from "../Question";
+import { QuestionType } from "../enums";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AnswerService {
-    private progress: ProgressModel = new ProgressModel();
+        
+    // private userAnswer: string = '';
+    // private selectedOption: string = '';
+    // private selectedOptionS: string[] = [];
+    
 
     constructor() { }
 
-    checkAnswer(question: Question, selectedAnswer: string) {
-
+    checkAnswer(question: Question, selectedAnswer: string | string[]) : boolean {
+        if (question.type === QuestionType.FillIn) {
+            const expectedAnswer = question.answer as string;
+            return (selectedAnswer as string).trim().toLowerCase() === expectedAnswer.trim().toLowerCase();
+        } else if (question.type === QuestionType.SingleChoice) {
+            const expectedAnswer = question.answer as string;
+            return selectedAnswer as string === expectedAnswer;
+        } else if (question.type === QuestionType.MultipleChoice) {
+            const expectedAnswer = question.answer as string[];
+            if ((selectedAnswer as string[]).length !== expectedAnswer.length) {
+                return false;
+            }
+            return expectedAnswer.every(answer => (selectedAnswer as string[]).includes(answer));
+        }
+        return false;
     }
 
-    startCheckModus() : void {
+    // setUserAnswer(answer: string): void {
+    //     this.userAnswer = answer;
+    // }
 
-    }
+    // setSelectedOption(option: string): void {
+    //     this.selectedOption = option;
+    // }
 
-    startExamModus() : void {
-        
-    }
+    // setSelectedOptions(optionS: string[]): void {
+    //     this.selectedOptionS = optionS;
+    // }
 
-    getProgress() : ProgressModel {
-        return this.progress;
-    }
+
 }
 
 
-export class ProgressModel {
-    correctAnswers: number = 0;
-    incorrectAnswers: number = 0;
-}
-
-
-// export class FeedbackModel {
-//     feedbackText: string = '';
-//     iscorrect: boolean = false;
-// }

@@ -9,6 +9,7 @@ import { CheckComponent } from './check/check.component';
 import { ExamComponent } from './exam/exam.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ResultComponent } from './result/result.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ResultComponent } from './result/result.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

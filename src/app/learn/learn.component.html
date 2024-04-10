@@ -7,35 +7,35 @@
 
  <!-- Einzelansicht -->
 <div *ngIf="singleView">
-  <h5>{{ currentQuestion.id }}. {{ currentQuestion.question }}</h5>
-  <p>-- {{ currentQuestion.type }} --</p>
+  <h5>{{ currentQuestion().id }}. {{ currentQuestion().question }}</h5>
+  <p>-- {{ currentQuestion().type }} --</p>
 
-    <ng-container *ngIf="currentQuestion.type !== questionType.FillIn">
+    <ng-container *ngIf="currentQuestion().type !== questionType.FillIn">
         <ul>
-            <li *ngFor="let option of currentQuestion.options">
+            <li *ngFor="let option of currentQuestion().options">
               <label>
-                <input type="radio" *ngIf="currentQuestion.type === questionType.SingleChoice" name="answer" [value]="option">
-                <input type="checkbox" *ngIf="currentQuestion.type === questionType.MultipleChoice" name="answer" [value]="option">
-                {{ option }}
+                <input type="radio" *ngIf="currentQuestion().type === questionType.SingleChoice" name="answer" [value]="option">
+                <input type="checkbox" *ngIf="currentQuestion().type === questionType.MultipleChoice" name="answer" [value]="option">
+                {{ option[0] }}
               </label>
             </li>
         </ul>
     </ng-container>
     
-    <ng-container *ngIf="currentQuestion.type === questionType.FillIn">
+    <ng-container *ngIf="currentQuestion().type === questionType.FillIn">
         <input type="text" class="fill-in-field" value="{{answer}}" readonly>
     </ng-container>
 
     <ng-container>
-      <button (click)="showAnswer(currentQuestion.id - 1)">Show Answer</button>
-      <div *ngIf="showingAnswerIndex === currentQuestion.id - 1 && currentQuestion.type !== questionType.FillIn">
-        Answer: {{ currentQuestion.answer }}
+      <button (click)="showAnswer(currentQuestion().id - 1)">Show Answer</button>
+      <div *ngIf="showingAnswerIndex === currentQuestion().id - 1 && currentQuestion().type !== questionType.FillIn">
+        Answer: {{ currentQuestion().answer }}
       </div>
     </ng-container>
 
    <div>
-    <button (click)="previousQuestion()" [disabled]="currentQuestion.id === 1">Previous</button>
-    <button (click)="nextQuestion()" [disabled]="currentQuestion.id === questions.length">Next</button>
+    <button (click)="previousQuestion()" [disabled]="currentQuestion().id === 1">Previous</button>
+    <button (click)="nextQuestion()" [disabled]="currentQuestion().id === questions.length">Next</button>
    </div>
 </div>
 
@@ -52,7 +52,7 @@
                 <label>
                   <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
                   <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
-                  {{ option }}
+                  {{ option[0] }}
                 </label>
               </li>
           </ul>

@@ -1,2 +1,51 @@
 <p>Willkommen in Check-Modus</p>
 
+ <div *ngIf="currQuestion">
+    <h5>{{ currQuestion.id }}. {{ currQuestion.question }}</h5>
+    <p>-- {{ currQuestion.type }} --</p>
+  
+      <ng-container *ngIf="currQuestion.type === questionType.SingleChoice">
+          <ul>
+              <li *ngFor="let option of currQuestion.options">
+                
+                  <input id="{{currQuestion.id}}" type="radio" [(ngModel)]="selectedOption" [value]="option[0]">
+                  <label for="{{currQuestion.id}}">  {{ option[0] }} </label>
+            </li>
+        </ul>
+    </ng-container>
+    
+    <ng-container *ngIf="currQuestion.type === questionType.MultipleChoice">
+        <ul>
+            <li *ngFor="let option of currQuestion.options">
+                <label>
+                  <input type="checkbox" [checked]="isSelected(option[0])" (change)="toggleSelection(option[0])">
+                  {{ option[0] }}
+                </label>
+            </li>
+      </ul>
+    </ng-container>
+ 
+    <ng-container *ngIf="currQuestion.type === questionType.FillIn">
+        <input type="text" [(ngModel)]="userAnswer" placeholder="Enter your answer">
+    </ng-container>
+
+    <!-- Feedback -->
+    <!-- <div *ngIf="showFeedback">
+        <p *ngIf="isAnswerCorrect">Richtige Antwort!</p>
+        <p *ngIf="!isAnswerCorrect">Falsche Antwort! Die richtige Antwort ist: {{ currQuestion.answer }}</p>
+    </div> -->
+
+
+
+        <div>
+           Answer: {{ currQuestion.answer }}
+        </div>
+
+  
+     <div>
+      <button (click)="previousQuestion()" [disabled]="currQuestion.id === 1">Previous</button>
+      <button (click)="checkAndNextQuestion()" >Check answer and next</button>
+      <button (click)="skipQuestion()" [disabled]="currQuestion.id === questions.length">Skip</button>
+      <button (click)="finishCheckMode()">finish check mode</button>
+     </div>
+</div>

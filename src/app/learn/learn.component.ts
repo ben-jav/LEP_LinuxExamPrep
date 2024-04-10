@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { mockQuestions } from '../mockData';
 import { QuestionType } from '../enums';
 import { Question } from '../Question';
+import { QuestionService } from '../services/question.service';
 
 @Component({
   selector: 'ne4-learn',
@@ -16,8 +17,9 @@ export class LearnComponent {
 
   singleView: boolean = false;
   currentIndex: number = 0;
+  currQuestion: Question | undefined = undefined;
 
-  constructor() { }
+  constructor(private questionService: QuestionService) { }
 
   ngOnInt() : void {
   }
@@ -25,15 +27,20 @@ export class LearnComponent {
   toggleView() : void {
     this.singleView = !this.singleView;
   }
-  get currentQuestion() : Question {
-    return this.questions[this.currentIndex];
+
+  currentQuestion() : Question {
+    // this.currQuestion = this.questionService.goToCurrentQuestion();
+    this.currQuestion = this.questions[this.currentIndex];
+    return this.currQuestion;
   }
   previousQuestion() : void {
+    // this.questionService.goToPreviousQuestion();
     if (this.currentIndex > 0) {
       this.currentIndex--;
     }
   }
   nextQuestion() : void {
+    // this.questionService.goToNextQuestion();
     if (this.currentIndex < this.questions.length - 1) {
       this.currentIndex++;
     }
