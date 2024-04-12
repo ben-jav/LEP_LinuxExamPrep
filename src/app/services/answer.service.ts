@@ -18,15 +18,19 @@ export class AnswerService {
     checkAnswer(question: Question, selectedAnswer: string | string[]) : boolean {
         if (question.type === QuestionType.FillIn) {
             const expectedAnswer = question.answer as string;
-            return (selectedAnswer as string).trim().toLowerCase() === expectedAnswer.trim().toLowerCase();
+            console.log((selectedAnswer as string) === expectedAnswer.trim().toLowerCase())
+            return (selectedAnswer as string) === expectedAnswer.trim().toLowerCase();
         } else if (question.type === QuestionType.SingleChoice) {
             const expectedAnswer = question.answer as string;
+            console.log(selectedAnswer as string === expectedAnswer)
             return selectedAnswer as string === expectedAnswer;
         } else if (question.type === QuestionType.MultipleChoice) {
             const expectedAnswer = question.answer as string[];
             if ((selectedAnswer as string[]).length !== expectedAnswer.length) {
+                console.log(false)
                 return false;
             }
+            console.log(expectedAnswer.every(answer => (selectedAnswer as string[]).includes(answer)))
             return expectedAnswer.every(answer => (selectedAnswer as string[]).includes(answer));
         }
         return false;

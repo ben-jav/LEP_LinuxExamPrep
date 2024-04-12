@@ -12,6 +12,10 @@ export class QuestionService {
 
     constructor() { }
 
+    goToFirst() : void {
+        this.currentIndex = 0;
+    }
+
     goToCurrentQuestion() : Question {
         return this.questions[this.currentIndex];
     }
