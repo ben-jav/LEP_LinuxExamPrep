@@ -8,11 +8,12 @@ import { ResultService } from '../services/result.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ne4-exam',
-  templateUrl: './exam.component.html',
-  styleUrls: ['./exam.component.css']
+  selector: 'ne4-exam2',
+  templateUrl: './exam2.component.html',
+  styleUrls: ['./exam2.component.css']
 })
-export class ExamComponent {
+
+export class Exam2Component {
   
     questions = mockQuestions;
     questionType = QuestionType;
@@ -25,7 +26,7 @@ export class ExamComponent {
     isAnswerCorrect: boolean = false;
     isQuestionAnswered: boolean = false;
 
-    abortConditionPercent: number = 150;
+    abortConditionPercent: number = 99;
 
     // Zustand für beantworteten Fraggen:
     answeredQuestions: Set<number> = new Set<number>();

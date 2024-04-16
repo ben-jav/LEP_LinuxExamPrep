@@ -1,0 +1,20 @@
+/* Stil für den Rahmen der Frage */
+.question-frame {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Stil für die Optionen (Listenelemente) */
+  .question-options {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Stil für die Buttons */
+  .button-frame {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around; /* Platzierung der Buttons mit Abstand */
+  }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
+// import { DataService } from '../services/data.service'; 
 
 @Component({
   selector: 'ne4-home',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+
+
+  zuLPICsiteLeiten() : void {
+    window.location.href = "https://www.lpi.org/";
+  }
 }

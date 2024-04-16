@@ -10,6 +10,7 @@ import { ExamComponent } from './exam/exam.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ResultComponent } from './result/result.component';
 import { FormsModule } from '@angular/forms';
+import { Exam2Component } from './exam2/exam2.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     CheckComponent,
     ExamComponent,
     NavbarComponent,
-    ResultComponent
+    ResultComponent,
+    Exam2Component
   ],
   imports: [
     BrowserModule,

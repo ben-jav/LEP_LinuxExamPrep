@@ -6,6 +6,7 @@ import { CheckComponent } from './check/check.component';
 import { ExamComponent } from './exam/exam.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ResultComponent } from './result/result.component';
+import { Exam2Component } from './exam2/exam2.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'learn', component: LearnComponent },
   { path: 'check', component: CheckComponent },
   { path: 'exam', component: ExamComponent },
+  { path: 'exam2', component: Exam2Component },
   { path: 'result', component: ResultComponent}
 ];
 

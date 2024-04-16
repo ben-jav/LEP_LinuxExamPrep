@@ -11,6 +11,13 @@
     padding: 14px 20px;
     text-decoration: none;
   }
+
+  .navbar-icon {
+    width: 20px; /* Ändere die Breite entsprechend deiner gewünschten Größe */
+    height:auto; /* Das Seitenverhältnis beibehalten */
+    margin-right: 5px; /* Optional: Abstand zum Text hinzufügen */
+  }
+
   
   .navbar a:hover {
     background-color: #ddd;
