@@ -1,20 +1,90 @@
-/* Stil für den Rahmen der Frage */
-.question-frame {
+/* Check-Modus Stil */
+.check-mode {
+    margin-top: 20px;
+    padding: 20px;
     border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
   }
   
-  /* Stil für die Optionen (Listenelemente) */
-  .question-options {
-    list-style: none;
+  .check-mode h5 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .check-mode p {
+    color: #666;
+  }
+  
+  .check-mode ul {
+    list-style-type: none;
     padding: 0;
   }
   
-  /* Stil für die Buttons */
-  .button-frame {
-    border: 1px solid #ccc;
-    padding: 10px;
-    display: flex;
-    justify-content: space-around; /* Platzierung der Buttons mit Abstand */
+  .check-mode li {
+    margin-bottom: 10px;
   }
+  
+  .check-mode input[type="radio"],
+  .check-mode input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .check-mode button {
+    margin-top: 15px;
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .check-mode button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .check-mode input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Media Query für kleine Bildschirme (Handys, Tablets im Hochformat) */
+  @media only screen and (max-width: 600px) {
+    .check-mode {
+      padding: 10px;
+    }
+    .check-mode h5 {
+      font-size: 16px;
+    }
+    .check-mode button {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Media Query für mittelgroße Bildschirme (Tablets im Querformat, kleinere Laptops) */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .check-mode {
+      padding: 15px;
+    }
+    .check-mode h5 {
+      font-size: 20px;
+    }
+  }
+  
+  /* Media Query für große Bildschirme (Desktops, Laptops) */
+  @media only screen and (min-width: 1025px) {
+    .check-mode {
+      padding: 25px;
+    }
+    .check-mode h5 {
+      font-size: 24px;
+    }
+  }
+  

@@ -6,7 +6,7 @@
 
 
  <!-- Einzelansicht -->
-<div *ngIf="singleView">
+<div *ngIf="singleView" class="single-view">
   <h5>{{ currentQuestion().id }}. {{ currentQuestion().question }}</h5>
   <p>-- {{ currentQuestion().type }} --</p>
 
@@ -41,36 +41,30 @@
 
 
  <!-- Listenansicht -->
-<div *ngIf="singleView === false">
-  <div *ngFor="let question of questions; let i = index">
-      <h5>{{question.id}}. {{ question.question }}</h5>
-      <p>-- {{ question.type }} --</p> 
+<div *ngIf="singleView === false" class="list-view">
+  <div *ngFor="let question of questions; let i = index" class="question-container">
+    <h5>{{ question.id }}. {{ question.question }}</h5>
+    <p>-- {{ question.type }} --</p>
   
-      <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
-          <ul>
-              <li *ngFor="let option of question.options">
-                <label>
-                  <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
-                  <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
-                  {{ option[0] }}
-                </label>
-              </li>
-          </ul>
-      </ng-container>
+    <ng-container *ngIf="question.type === questionType.SingleChoice || question.type === questionType.MultipleChoice">
+      <ul>
+        <li *ngFor="let option of question.options">
+          <label>
+            <input type="radio" *ngIf="question.type === questionType.SingleChoice" name="answer" [value]="option">
+            <input type="checkbox" *ngIf="question.type === questionType.MultipleChoice" name="answer" [value]="option">
+            {{ option[0] }}
+          </label>
+        </li>
+      </ul>
+    </ng-container>
       
-      <ng-container *ngIf="question.type === questionType.FillIn">
-          <input type="text" class="fill-in-field" value="{{answer}}" readonly>
-      </ng-container>
+    <ng-container *ngIf="question.type === questionType.FillIn">
+      <input type="text" class="fill-in-field" value="{{ answer }}" readonly>
+    </ng-container>
   
-      <ng-container>
-        <button (click)="showAnswer(i)">Show Answer</button>
-        <div *ngIf="showingAnswerIndex === i && question.type !== questionType.FillIn">
-          Answer: {{ question.answer }}
-        </div>
-      </ng-container>
-  
-      <hr>
+    <button (click)="showAnswer(i)">Show Answer</button>
+    <div *ngIf="showingAnswerIndex === i && question.type !== questionType.FillIn">
+      Answer: {{ question.answer }}
+    </div>
   </div>
 </div>
-
-

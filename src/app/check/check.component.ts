@@ -17,6 +17,8 @@ export class CheckComponent {
   questionType = QuestionType;
   currQuestion: Question | undefined = undefined;
 
+  numberOfQuestions: number | undefined = undefined;
+
   userAnswer: string = '';
   selectedOption: string = '';
   selectedOptionS: string[] = [];

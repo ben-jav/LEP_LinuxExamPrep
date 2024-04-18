@@ -1,17 +1,17 @@
 
-<div *ngIf="isCheck">  
+<div *ngIf="isCheck" class="result-container">  
     <h2>Result for check mode</h2>  
-    <p>Correct Answers: {{ resultService.getProgress().correctAnswers }}</p>
-    <p>Wrong Answers: {{ resultService.getProgress().wrongAnswers }}</p>
-    <p>Not Answered: {{ resultService.getProgress().notAnswered }}</p>
+    <p>Correct Answers 💪👏 : {{ resultService.getProgress().correctAnswers }}</p>
+    <p>Wrong Answers 👎😵‍💫 : {{ resultService.getProgress().wrongAnswers }}</p>
+    <p>Not Answered 🧐 : {{ resultService.getProgress().notAnswered }}</p>
 </div>
 
 
 
-<div *ngIf="isExam">  
+<div *ngIf="isExam" class="result-container">  
     <h2>Result for exam mode</h2>  
-    <p>Correct Answers: {{ resultService.getProgress().correctAnswers }}</p>
-    <p>Wrong Answers: {{ resultService.getProgress().wrongAnswers }}</p>
+    <p>Correct Answers 💪👏 : {{ resultService.getProgress().correctAnswers }}</p>
+    <p>Wrong Answers 👎😵‍💫 : {{ resultService.getProgress().wrongAnswers }}</p>
 </div>
 
 <div>

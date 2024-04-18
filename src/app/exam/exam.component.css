@@ -1,0 +1,55 @@
+.exam-mode {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .exam-mode h5 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .exam-mode p {
+    color: #666;
+  }
+  
+  .exam-mode ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .exam-mode li {
+    margin-bottom: 10px;
+  }
+  
+  .exam-mode input[type="radio"],
+  .exam-mode input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .exam-mode button {
+    margin-top: 15px;
+    margin-right: 10px; 
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .exam-mode button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .exam-mode input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
