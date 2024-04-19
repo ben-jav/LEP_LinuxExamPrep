@@ -1,7 +1,31 @@
 
-<router-outlet name="navbar"></router-outlet>
 
-<router-outlet></router-outlet>
+<div *ngIf="!username" class="container">
+    
+
+        <input type="text" [(ngModel)]="username" placeholder="Enter your username..." class="username-input">
+        <button (click)="setUserName()" class="confirm-button">Confirm</button>
+
+
+</div>
+
+
+      
+<div *ngIf="username">
+
+    <!-- <h1>Welcome, {{ username }}!</h1> -->
+
+    <router-outlet name="navbar"></router-outlet>
+
+    <router-outlet></router-outlet>
+
+</div>
+  
+
+
+
+
+
 
 
 

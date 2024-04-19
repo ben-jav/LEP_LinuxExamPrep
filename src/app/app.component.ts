@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+// import { ResultService } from './services/result.service';
+import { UsernameService } from './services/username.service';
 
 @Component({
   selector: 'ne4-root',
@@ -7,4 +9,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'LEP_LinuxExamPrep';
+
+  inputUsername: string = '';
+  username: string = '';
+
+
+  // constructor(private resultService: ResultService) {}
+
+  // submitUsername() {
+  //   if(this.username.trim() !== '') {
+  //     this.resultService.setUsername(this.username);
+  //   }
+  // }
+
+  constructor(private usernameService : UsernameService) {}
+
+  setUserName() {
+    this.usernameService.setUsername(this.username);
+  }
+
+
+
 }

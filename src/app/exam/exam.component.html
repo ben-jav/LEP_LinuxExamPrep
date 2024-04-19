@@ -1,8 +1,26 @@
-<p>EXAM MODE</p>
-zuerst schliesse check mudus!
+
+<div *ngIf="desiredNumber === undefined" class="exam-mode-container">
+    <p class="welcome-message">Welcome to Check-Mode</p>
+    <p class="options-message">You have three options:</p>
+    <ol class="options-list">
+      <li class="option-item" (click)="setDesiredNumberFalse()">
+        <span class="option-text">All {{ questions.length }} questions in the original order</span>
+      </li>
+      <li class="option-item" (click)="allQuestionsButRandom()">
+        <span class="option-text">All {{ questions.length }} questions in random order</span>
+      </li>
+      <li class="option-item">
+        <label for="numberOfQuestions" class="input-label">Enter the desired number of questions:</label>
+        <input type="number" id="numberOfQuestions" [(ngModel)]="numberOfQuestions" name="numberOfQuestions" class="input-field" min="1" required>
+        <button class="select-button" (click)="setDesiredNumberTrue()">Select</button>
+      </li>
+    </ol>
+  </div>
 
 
- <div *ngIf="currQuestion" class="exam-mode">
+
+
+ <div *ngIf="currQuestion && desiredNumber !== undefined" class="exam-mode">
     <h5>{{ currQuestion.id }}. {{ currQuestion.question }}</h5>
     <p>-- {{ currQuestion.type }} --</p>
   
@@ -53,7 +71,9 @@ zuerst schliesse check mudus!
   
      <div>
       <button (click)="previousQuestion()" [disabled]="currQuestion.id === 1">Previous</button>
-      <button (click)="nextQuestion()" >Next</button>
+      <button (click)="nextQuestion()">
+        {{ isLastQuestion ? 'Last question! Finish' : 'Next'}}
+      </button>
       <button (click)="finishExamMode()">Finish</button>
      </div>
 </div>

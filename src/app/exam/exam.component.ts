@@ -25,7 +25,13 @@ export class ExamComponent {
     isAnswerCorrect: boolean = false;
     isQuestionAnswered: boolean = false;
 
-    abortConditionPercent: number = 150;
+    abortConditionPercent: number = 20;
+
+    // for selected number of questions v2
+    numberOfQuestions: number = 0;
+    desiredNumber: boolean | undefined = undefined;
+    allButRandom: boolean = false;
+    randomIndex: number[] = [];
 
     // Zustand für beantworteten Fraggen:
     answeredQuestions: Set<number> = new Set<number>();
@@ -38,12 +44,33 @@ export class ExamComponent {
     ngOnInit(): void {
       this.resultService.resetProgress();
       this.resultService.startExamModus();
-      this.questionService.goToFirst();
+      if (!this.desiredNumber) {
+        this.questionService.goToFirst();
+      } else if(this.desiredNumber === true) {
+        this.questionService.goToFirstV2();
+      }
       this.currentQuestion();
+    }
+
+    setDesiredNumberTrue() : void {
+      this.randomIndex = this.questionService.createRandom(this.numberOfQuestions);
+      this.desiredNumber = true;
+    }
+    setDesiredNumberFalse() : void {
+      this.desiredNumber = false;
+    }
+    allQuestionsButRandom() : void {
+      this.numberOfQuestions = this.questions.length;
+      this.setDesiredNumberTrue();
+      this.allButRandom = true;
     }
   
     currentQuestion() : Question{
-      this.currQuestion = this.questionService.goToCurrentQuestion();
+      if (!this.desiredNumber) {
+        this.currQuestion = this.questionService.goToCurrentQuestion();
+      } else {
+        this.currQuestion = this.questionService.goToCurrentQuestionV2();
+      }
       this.selectedOptionS = [];
       if (this.answeredQuestions.has(this.currQuestion.id)) {
         this.isQuestionAnswered = true;
@@ -53,6 +80,18 @@ export class ExamComponent {
       }
       return this.currQuestion;
     }
+
+    // currentQuestion() : Question{
+    //   this.currQuestion = this.questionService.goToCurrentQuestion();
+    //   this.selectedOptionS = [];
+    //   if (this.answeredQuestions.has(this.currQuestion.id)) {
+    //     this.isQuestionAnswered = true;
+    //     this.loadAnswerForCurrQuestion();
+    //   } else {
+    //     this.isQuestionAnswered = false;
+    //   }
+    //   return this.currQuestion;
+    // }
 
     loadAnswerForCurrQuestion() : void {
       if (this.currQuestion) {
@@ -67,8 +106,12 @@ export class ExamComponent {
     }
   
     previousQuestion() : void {
-      this.questionService.goToPreviousQuestion();
-      this.currentQuestion(); // Lade die vorherige Frage
+      if (!this.desiredNumber) {
+        this.questionService.goToPreviousQuestion();
+      } else {
+        this.questionService.goToPreviousQuestionV2();
+      }
+      this.currentQuestion(); // vorherige Frage
       // this.resetFeedback();
     }
   
@@ -88,7 +131,11 @@ export class ExamComponent {
   
     nextQuestion() : void {
       if (this.isQuestionAnswered) {
-        this.questionService.goToNextQuestion();
+        if (!this.desiredNumber) {
+          this.questionService.goToNextQuestion();
+        } else {
+          this.questionService.goToNextQuestionV2();
+        }
         this.currentQuestion();
         return;
       }
@@ -123,18 +170,31 @@ export class ExamComponent {
         if (this.resultService.getProgress().wrongAnswers >= (((this.questions.length)/100)*this.abortConditionPercent) ) {
           alert(`---> you answered ${this.resultService.getProgress().wrongAnswers} out of ${this.questions.length} questions (${this.abortConditionPercent}%) incorrectly. <---\n---> Exit exam mode <---`)
           this.finishExamMode();
-        } else {
+        } else if(!this.desiredNumber) {
           if (this.currQuestion!.id < this.questions.length) {
             this.questionService.goToNextQuestion();
             this.currentQuestion();
           } else {
             this.finishExamMode();
           }
-          // this.resetFeedback();
+        } else if (this.desiredNumber) {
+          if (this.currQuestion!.id - 1 !== this.randomIndex[this.randomIndex.length-1]) {
+            this.questionService.goToNextQuestionV2();
+            this.currentQuestion();
+          } else {
+            this.finishExamMode();
+          }
         }
       }
     }
   
+    get isLastQuestion(): boolean {
+      if (this.desiredNumber) {
+        return this.currQuestion!.id - 1 === this.randomIndex[this.randomIndex.length-1];
+      } else {
+        return this.currQuestion!.id === this.questions.length;
+      }
+    }
   
     finishExamMode() : void {
       this.router.navigate(['/result']);

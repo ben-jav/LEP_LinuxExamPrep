@@ -12,6 +12,21 @@ export class ResultService {
     public isThisChekModus: boolean = false;
     public isThisExamModus: boolean = false;
 
+    // username: string = '';
+
+    // setUsername(username: string) {
+    //     this.username = username;
+    // }
+    // getUsername(): string {
+    //     return this.username;
+    // }
+    // generateFileName(): string {
+    //     const currDate = new Date();
+    //     const date = currDate.toLocaleDateString().replace(/\//g, '-'); //  '-' statt '/'
+    //     const time = currDate.toLocaleTimeString().replace(/:/g, ''); // läsche ':'
+    //     return `${this.username}_${date}_${time}_result.json`;
+    //   }
+
     startCheckModus() : void {
         this.isThisExamModus = false;
         this.isThisChekModus = true;
