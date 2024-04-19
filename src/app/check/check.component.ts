@@ -17,14 +17,19 @@ export class CheckComponent {
   questionType = QuestionType;
   currQuestion: Question | undefined = undefined;
 
-  numberOfQuestions: number | undefined = undefined;
-
   userAnswer: string = '';
   selectedOption: string = '';
   selectedOptionS: string[] = [];
-
+  
   showFeedback: boolean = false;
   isAnswerCorrect: boolean = false;
+  
+  // for selected number of questions v2
+  numberOfQuestions: number = 0;
+  desiredNumber: boolean | undefined = undefined;
+  allButRandom: boolean = false;
+  randomIndex: number[] = [];
+  
 
   constructor(private answerService: AnswerService, 
               private questionService: QuestionService,
@@ -34,18 +39,43 @@ export class CheckComponent {
   ngOnInit(): void {
     this.resultService.resetProgress();
     this.resultService.startCheckModus();
-    this.questionService.goToFirst();
+    if (!this.desiredNumber) {
+      this.questionService.goToFirst();
+    } else if(this.desiredNumber === true) {
+      this.questionService.goToFirstV2();
+    }
     this.currentQuestion();
   }
 
+  setDesiredNumberTrue() : void {
+    this.randomIndex = this.questionService.createRandom(this.numberOfQuestions);
+    this.desiredNumber = true;
+  }
+  setDesiredNumberFalse() : void {
+    this.desiredNumber = false;
+  }
+  allQuestionsButRandom() : void {
+    this.numberOfQuestions = this.questions.length;
+    this.setDesiredNumberTrue();
+    this.allButRandom = true;
+  }
+
   currentQuestion() : Question {
-    this.currQuestion = this.questionService.goToCurrentQuestion();
+    if (!this.desiredNumber) {
+      this.currQuestion = this.questionService.goToCurrentQuestion();
+    } else {
+      this.currQuestion = this.questionService.goToCurrentQuestionV2();
+    }
     this.selectedOptionS = [];
     return this.currQuestion;
   }
 
   previousQuestion() : void {
-    this.questionService.goToPreviousQuestion();
+    if (!this.desiredNumber) {
+      this.questionService.goToPreviousQuestion();
+    } else {
+      this.questionService.goToPreviousQuestionV2();
+    }
     this.currentQuestion(); // Lade die vorherige Frage
     this.resetFeedback();
   }
@@ -94,23 +124,32 @@ export class CheckComponent {
       if (this.resultService.getProgress().wrongAnswers >= 7) {
         alert('---> you answered 7 questions incorrectly <---\n---> please use learn mode <---')
         this.finishCheckMode();
-      } else {
+      } else if (!this.desiredNumber) {
         if (this.currQuestion!.id < this.questions.length) {
           this.questionService.goToNextQuestion();
           this.currentQuestion();
         } else {
           this.finishCheckMode();
         }
-        // setTimeout(() => {
         this.resetFeedback();
-        // }, 10000);
+      } else if (this.desiredNumber) {
+        if (this.currQuestion.id - 1 !== this.randomIndex[this.randomIndex.length-1]) {
+          this.questionService.goToNextQuestionV2();
+          this.currentQuestion();
+        } else {
+          this.finishCheckMode();
+        }
       }
     }
   }
 
   skipQuestion() : void {
     this.resultService.setProgress(0,0,1);
-    this.questionService.goToNextQuestion();
+    if (!this.desiredNumber) {
+      this.questionService.goToNextQuestion();
+    } else {
+      this.questionService.goToNextQuestionV2();
+    }
     this.currentQuestion();
     this.resetFeedback();
   }

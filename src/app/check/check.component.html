@@ -1,6 +1,28 @@
-<p>Willkommen in Check-Modus</p>
+<div *ngIf="desiredNumber === undefined" class="check-mode-container">
+    <p class="welcome-message">Welcome to Check-Mode</p>
+    <p class="options-message">You have three options:</p>
+    <ol class="options-list">
+      <li class="option-item" (click)="setDesiredNumberFalse()">
+        <span class="option-text">All {{ questions.length }} questions in the original order</span>
+      </li>
+      <li class="option-item" (click)="allQuestionsButRandom()">
+        <span class="option-text">All {{ questions.length }} questions in random order</span>
+      </li>
+      <li class="option-item">
+        <label for="numberOfQuestions" class="input-label">Enter the desired number of questions:</label>
+        <input type="number" id="numberOfQuestions" [(ngModel)]="numberOfQuestions" name="numberOfQuestions" class="input-field" min="1" required>
+        <button class="select-button" (click)="setDesiredNumberTrue()">Select</button>
+      </li>
+    </ol>
+  </div>
+  
 
- <div *ngIf="currQuestion" class="check-mode">
+
+
+
+
+
+ <div *ngIf="currQuestion && desiredNumber !== undefined" class="check-mode">
     <h5>{{ currQuestion.id }}. {{ currQuestion.question }}</h5>
     <p>-- {{ currQuestion.type }} --</p>
   
@@ -29,21 +51,14 @@
         <input type="text" [(ngModel)]="userAnswer" placeholder="Enter your answer">
     </ng-container>
 
-    <!-- Feedback -->
-    <!-- <div *ngIf="showFeedback">
-        <p *ngIf="isAnswerCorrect">Richtige Antwort!</p>
-        <p *ngIf="!isAnswerCorrect">Falsche Antwort! Die richtige Antwort ist: {{ currQuestion.answer }}</p>
-    </div> -->
-
         <div>
            Answer: {{ currQuestion.answer }}
         </div>
-
   
      <div>
       <button (click)="previousQuestion()" [disabled]="currQuestion.id === 1">Previous</button>
       <button (click)="checkAndNextQuestion()" >Check answer and next</button>
-      <button (click)="skipQuestion()" [disabled]="currQuestion.id === questions.length">Skip</button>
+      <button (click)="skipQuestion()" [disabled]="currQuestion.id === questions.length || currQuestion.id - 1 === randomIndex[randomIndex.length-1]">Skip</button>
       <button (click)="finishCheckMode()">finish check mode</button>
      </div>
 </div>

@@ -1,3 +1,77 @@
+.check-mode-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.welcome-message {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.options-message {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.options-list {
+  list-style-type: none; /* Entfernt die Standardnummerierung der Liste */
+  padding-left: 0;
+}
+
+.option-item {
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
+}
+
+.option-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.input-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.input-field {
+  width: 100px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.select-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.select-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
 /* Check-Modus Stil */
 .check-mode {
     margin-top: 20px;
