@@ -24,8 +24,10 @@ export class AppComponent {
 
   constructor(private usernameService : UsernameService) {}
 
-  setUserName() {
-    this.usernameService.setUsername(this.username);
+  setUserName(username: string) {
+    this.usernameService.setUsername(username);
+    this.username = this.usernameService.getUsername();
+    console.log('gespeicherte Username: ', this.username)
   }
 
 
