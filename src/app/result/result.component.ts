@@ -16,10 +16,10 @@ export class ResultComponent {
   isCheck = this.resultService.isThisChekModus;
   isExam = this.resultService.isThisExamModus;
 
-  username: string = '';
+  // username: string = '';
 
   ngOnInit(): void {
-    this.username = this.usernameService.getUsername();
+    // this.username = this.usernameService.getUsername();
   }
 
   resetProgress() : void {
@@ -27,11 +27,12 @@ export class ResultComponent {
   }
 
   saveResult() {
+    const username: string = this.usernameService.getUsername();
     const currDate = new Date();
     const date = currDate.toLocaleDateString();
     const time = currDate.toLocaleTimeString();
-    const fileName = `${this.username}_${date}_result.json`;
-    const user: string = this.username;
+    const fileName = `${username}_${date}_result.json`;
+    const user: string = username;
   
     const progress = this.resultService.getProgress();
     const mode = this.isCheck ? 'Check-Modus' : (this.isExam ? 'Exam-Modus' : 'Unbekannt');
